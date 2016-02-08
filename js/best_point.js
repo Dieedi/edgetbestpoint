@@ -124,7 +124,7 @@ function arrayCompare(array1, array2) {
 }
 
 function getSystemsNameAndDoSearch() {
-    $.getJSON('../json/data.json', function (data) {
+    $.getJSON('json/data.json', function (data) {
         $.each(data, function (key, value) {
             items.push({
                 name: value.name,
