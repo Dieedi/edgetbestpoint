@@ -6,27 +6,31 @@
     <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
     <!--<script src="http://www.edsm.net/dump/systemsWithCoordinates.json?callback=items"></script>-->
     <script src="js/best_point.js"></script>
+    <link rel="stylesheet" href="css/main.css"></link>
 </head>
 <body>
-    <div class="form">
-        <form>
-            <label>Start coordinates</label>
-            <input type="number" id="originXCoord" value="xCoord">
-            <input type="number" id="originYCoord" value="yCoord">
-            <input type="number" id="originZCoord" value="zCoord">
-            <br>
-            <label>Target coordinates</label>
-            <input type="number" id="targetXCoord" value="xCoord">
-            <input type="number" id="targetYCoord" value="yCoord">
-            <input type="number" id="targetZCoord" value="zCoord">
-        </form>
+    <div id="main-container">
+        <div class="form">
+            <form>
+                <label>Start coordinates :</label>
+                <span>X : </span><input type="number" id="originXCoord" value="xCoord">
+                <span>Y : </span><input type="number" id="originYCoord" value="yCoord">
+                <span>Z : </span><input type="number" id="originZCoord" value="zCoord">
+                <br>
+                <label>Target coordinates :</label>
+                <span>X : </span><input type="number" id="targetXCoord" value="xCoord">
+                <span>Y : </span><input type="number" id="targetYCoord" value="yCoord">
+                <span>Z : </span><input type="number" id="targetZCoord" value="zCoord">
+            </form>
 
-        <button>Find My Way !</button>
-    </div>
+            <button>Find My Way !</button>
+        </div>
 
-    <div class="result hide">
-        <h1>Find first way point :</h1>
-        <div id="result_display">
+        <div class="result hide">
+            <h1>Find first way point :</h1>
+            <div id="result_display">
+                <ul></ul>
+            </div>
         </div>
     </div>
 </body>

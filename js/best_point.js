@@ -111,10 +111,10 @@ function displayResults(results, systems) {
     for (var i = 0; i < results.length; i++) {
 
         console.log(i,results[i],systems[i]);
-        htmlResult.push('<p>Coordinates found : x=' + results[i][0] + ', y=' + results[i][1] + ', z=' + results[i][2] + ' <span>' + systems[i] + '</span></p><br>');
+        htmlResult.push('<li>Coordinates found : X = ' + results[i][0] + ', Y = ' + results[i][1] + ', Z = ' + results[i][2] + ' <span>' + systems[i] + '</span></li>');
     }
 
-    $('#result_display').html(htmlResult);
+    $('#result_display ul').html(htmlResult);
 }
 
 function arrayCompare(array1, array2) {
