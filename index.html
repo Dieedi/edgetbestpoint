@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ED Best Point search</title>
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <!--<script src="http://www.edsm.net/dump/systemsWithCoordinates.json?callback=items"></script>-->
+    <script src="js/best_point.js"></script>
+</head>
+<body>
+    <div class="form">
+        <form>
+            <input type="number" id="originXCoord" value="xCoord">
+            <input type="number" id="originYCoord" value="yCoord">
+            <input type="number" id="originZCoord" value="zCoord">
+            <br>
+            <input type="number" id="targetXCoord" value="xCoord">
+            <input type="number" id="targetYCoord" value="yCoord">
+            <input type="number" id="targetZCoord" value="zCoord">
+        </form>
+
+        <button>Find My Way !</button>
+    </div>
+
+    <div class="result hide">
+        <h1>Find first way point :</h1>
+        <div id="result_display">
+        </div>
+    </div>
+</body>
+</html>
