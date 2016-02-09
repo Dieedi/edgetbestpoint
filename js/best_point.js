@@ -52,21 +52,22 @@ function search(a, b, bigI) {
 
                 results.push(result);
 
-                searchSystem(result);
-
                 if (arrayCompare(target, result)) {
                     displayResults(results, systems);
                     found = true;
                 }
+                searchSystem(result);
 
                 stopThatFukingLoop = 3;
+
+                origin = result;
 
                 search(result, target, [0, 0, 0]);
             }
         }
 
-        // then solve distance originA to bigI (start to middle)
-        var abigI = Math.sqrt(Math.pow((bigI[0] - a[0]), 2) + Math.pow((bigI[1] - a[1]), 2) + Math.pow((bigI[2] - a[2]), 2));
+        // then solve distance last origin to bigI (start to middle)
+        var abigI = Math.sqrt(Math.pow((bigI[0] - origin[0]), 2) + Math.pow((bigI[1] - origin[1]), 2) + Math.pow((bigI[2] - origin[2]), 2));
         // if distance abigI is > delta (max distance)
         if (abigI > delta) {
             // bigI should now be our b point (originA doesn't change)
