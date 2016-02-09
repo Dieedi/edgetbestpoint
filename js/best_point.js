@@ -22,7 +22,7 @@ var stopThatFukingLoop = 3;
 var distanceAb;
 
 var result, results = [], systems = [];
-
+var test = 0;
 var found = false;
 
 $(document).ready(function(){
@@ -52,17 +52,30 @@ function search(a, b, bigI) {
 
                 results.push(result);
 
-                if (arrayCompare(target, result)) {
-                    displayResults(results, systems);
-                    found = true;
+                getSystemList()
+                    .done(
+                        function(data) {
+                            console.log(data);
+                            $.each(data, function(key, value) {
+                                systems.push(value.name);
+                                console.log(systems);
+                            });
+                            test = 1;
+                        })
+                    .fail(
+                        function () {
+                            alert('It\'s seems that there is a problem to get systems names');
+                        });
+
+                if (test == 1) {
+                    checkSystem();
+                    //searchSystem(result);
+
+                    stopThatFukingLoop = 3;
+
+                    origin = result;
+                    search(result, target, [0, 0, 0]);
                 }
-                searchSystem(result);
-
-                stopThatFukingLoop = 3;
-
-                origin = result;
-
-                search(result, target, [0, 0, 0]);
             }
         }
 
@@ -138,4 +151,15 @@ function getSystemsNameAndDoSearch() {
     }).fail(function () {
         alert('It\'s seems that there is a problem to get systems names');
     });
+}
+
+function getSystemList() {
+    return $.getJSON('http://www.edsm.net/api-v1/sphere-systems?x=' + result[0] + '&y=' + result[1] + '&z=' + result[2] + '');
+}
+
+function checkSystem() {
+    if (arrayCompare(target, result)) {
+        displayResults(results, systems);
+        found = true;
+    }
 }
