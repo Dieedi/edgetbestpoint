@@ -22,8 +22,8 @@ var stopThatFukingLoop = 3;
 var distanceAb;
 
 var result, results = [], systems = [];
-var test = 0;
 var found = false;
+var count = 0;
 
 $(document).ready(function(){
     $('button').click(function() {
@@ -37,7 +37,7 @@ $(document).ready(function(){
 });
 
 function search(a, b, bigI) {
-    while (found == false) {
+    if (found == false) {
         var lastI = bigI;
         // Calculate bigI (middle)
         bigI = [((a[0] + b[0]) / 2), ((a[1] + b[1]) / 2), ((a[2] + b[2]) / 2)];
@@ -45,57 +45,51 @@ function search(a, b, bigI) {
         if (arrayCompare(lastI, bigI)) {
             // if middle array found is similar to last middle array then decrease count
             stopThatFukingLoop--;
-
-            if (stopThatFukingLoop == 0) {
-                // Then extract results
-                result = [Math.round(bigI[0]), Math.round(bigI[1]), Math.round(bigI[2])];
-
-                results.push(result);
-
-                getSystemList()
-                    .done(
-                        function(data) {
-                            console.log(data);
-                            $.each(data, function(key, value) {
-                                systems.push(value.name);
-                                console.log(systems);
-                            });
-                            test = 1;
-                        })
-                    .fail(
-                        function () {
-                            alert('It\'s seems that there is a problem to get systems names');
-                        });
-
-                if (test == 1) {
-                    checkSystem();
-                    //searchSystem(result);
-
-                    stopThatFukingLoop = 3;
-
-                    origin = result;
-                    search(result, target, [0, 0, 0]);
-                }
-            }
         }
 
-        // then solve distance last origin to bigI (start to middle)
-        var abigI = Math.sqrt(Math.pow((bigI[0] - origin[0]), 2) + Math.pow((bigI[1] - origin[1]), 2) + Math.pow((bigI[2] - origin[2]), 2));
-        // if distance abigI is > delta (max distance)
-        if (abigI > delta) {
-            // bigI should now be our b point (originA doesn't change)
-            b = bigI;
 
-            // recall search function, a point doesn't change, b is same as i, reset i, ab is now ai
-            search(a, b, bigI);
+        if (stopThatFukingLoop == 0) {
+            // Then extract results
+            result = [Math.round(bigI[0]), Math.round(bigI[1]), Math.round(bigI[2])];
 
-        } else if (abigI < delta) {
-            a = bigI;
+            results.push(result);
 
-            search(a, b, bigI);
+            //searchSystem(result);
 
-        } else if (abigI == delta) {
-            console.log('find !', bigI);
+            stopThatFukingLoop = 3;
+
+            origin = result;
+
+            systems[count] = [];
+
+            getSystemList().done(function(data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                    systems[count].push(value.name);
+                });
+                count++;
+                checkSystem();
+                search(result, target, [0, 0, 0]);
+            });
+        } else {
+            // then solve distance last origin to bigI (start to middle)
+            var abigI = Math.sqrt(Math.pow((bigI[0] - origin[0]), 2) + Math.pow((bigI[1] - origin[1]), 2) + Math.pow((bigI[2] - origin[2]), 2));
+            // if distance abigI is > delta (max distance)
+            if (abigI > delta) {
+                // bigI should now be our b point (originA doesn't change)
+                b = bigI;
+
+                // recall search function, a point doesn't change, b is same as i, reset i, ab is now ai
+                search(a, b, bigI);
+
+            } else if (abigI < delta) {
+                a = bigI;
+
+                search(a, b, bigI);
+
+            } else if (abigI == delta) {
+                console.log('find !', bigI);
+            }
         }
     }
 }
